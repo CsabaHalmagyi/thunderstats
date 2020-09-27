@@ -6,16 +6,16 @@ A Spring Boot app that creates email statistics from .eml files downloaded from 
 
 
 
-# How to use it:
-1. Export your emails from Thunderbird in .eml format
-2. Clone the app and start it
-3. Visit http://localhost:8080/thunderstats
-4. Point the app to the directory you have the .eml files and click the "Show some stats!" button
+## How to use it:
+I. Export your emails from Thunderbird in .eml format
+II. Clone the app and start it
+III. Visit http://localhost:8080/thunderstats
+IV. Point the app to the directory you have the .eml files and click the "Show some stats!" button
 
 
 
 
-### 1. Export your emails from Thunderbird in .eml format:
+#### I. Export your emails from Thunderbird in .eml format:
 1. Create a folder on your local drive
 2. Open your Thunderbird app and select your inbox folder. Then click an email and select all (ctrl + A). Then right click on the selected emails and click Save as (see picture attached)
 ![Screenshot1](/documentation/export_emails.png)
@@ -24,8 +24,8 @@ A Spring Boot app that creates email statistics from .eml files downloaded from 
 
 
 
-### 2. Clone the app and start it
+#### II. Clone the app and start it
 
-### 3. Visit http://localhost:8080/thunderstats
+#### III. Visit http://localhost:8080/thunderstats
 
-### 4. Point the app to the directory you have the .eml files and click the "Show some stats!" button
+#### IV. Point the app to the directory you have the .eml files and click the "Show some stats!" button

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Thunderbird Email Stats</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Thunderbird Email Stats</a>
+</nav>
+
+<main role="main" class="container">
+
+
+    <form class="form-inline">
+        <label for="pwd" class="mr-sm-2">Path to local dir with saved emails:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter local path" id="pwd">
+        <label for="email" class="mr-sm-2">Your email address:</label>
+        <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter email" id="email">
+        <input type="button" id="submitButton" class="btn btn-primary mb-2" value="Show some stats!"/>
+    </form>
+    <div class="row">
+        <div id="messagesDiv"></div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <canvas id="dailyStats"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="monthlyStats"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <canvas id="yearlyStats"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="hourlyStats"></canvas>
+        </div>
+    </div>
+
+</main>
+<!-- /.container -->
+<script type="text/javascript" th:src="@{webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+<script type="text/javascript">
+
+
+
+    jQuery( document ).ready(function() {
+
+        jQuery("#submitButton").on("click", function () {
+            displayMessage("Initializing email stats", "info");
+           initStats();
+        });
+
+    });
+
+    function displayMessage(message, type){
+        var msgDiv = jQuery('<div class="alert alert-'+type+' fading-alert">'+message+'</div>');
+        jQuery("#messagesDiv").empty().append(msgDiv);
+        msgDiv.delay(2000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+    }
+
+    function initStats(){
+        var mailDir = jQuery("#pwd").val();
+        var senderEmail = jQuery("#email").val();
+        $.ajax({
+            type: 'POST', //post method
+            url: '/init?dir='+encodeURIComponent(mailDir)+'&email='+encodeURIComponent(senderEmail), //ajaxformexample url
+            dataType: "json",
+            success: function (result)
+            {
+                displayMessage("Found "+result+" email(s) in given directory. Creating charts.", "success");
+                getDailyStatsData();
+                getMonthlyStatsData();
+                getYearlyStatsData();
+                getHourlyStatsData();
+            },
+            error: function (){
+                displayMessage("Error when reading emails from given directory.", "danger");
+            }
+        });
+    }
+
+
+    function getDailyStatsData(){
+        $.ajax({
+            type: 'POST', //post method
+            url: '/dailystats', //ajaxformexample url
+            dataType: "json",
+            success: function (result)
+            {
+
+                var dailyChart = new Chart( document.getElementById('dailyStats').getContext('2d'), {
+                    type: "bar",
+                    data: {},
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Emails by day'
+                        }}
+                });
+                dailyChart.data = result;
+                dailyChart.update();
+            }
+        });
+    }
+
+
+    function getMonthlyStatsData(){
+        $.ajax({
+            type: 'POST', //post method
+            url: '/monthlystats', //ajaxformexample url
+            dataType: "json",
+            success: function (result)
+            {
+
+                var monthlyChart = new Chart( document.getElementById('monthlyStats').getContext('2d'), {
+                    type: "bar",
+                    data: {},
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Emails by month'
+                        }}
+                });
+                monthlyChart.data = result;
+                monthlyChart.update();
+            }
+        });
+    }
+
+
+    function getYearlyStatsData(){
+        $.ajax({
+            type: 'POST', //post method
+            url: '/yearlystats', //ajaxformexample url
+            dataType: "json",
+            success: function (result)
+            {
+
+                var yearlyChart = new Chart( document.getElementById('yearlyStats').getContext('2d'), {
+                    type: "bar",
+                    data: {},
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Emails by year'
+                        }}
+                });
+                yearlyChart.data = result;
+                yearlyChart.update();
+            }
+        });
+    }
+
+    function getHourlyStatsData(){
+        $.ajax({
+            type: 'POST', //post method
+            url: '/hourlystats', //ajaxformexample url
+            dataType: "json",
+            success: function (result)
+            {
+
+                var hourlyChart = new Chart( document.getElementById('hourlyStats').getContext('2d'), {
+                    type: "bar",
+                    data: {},
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Emails by hour'
+                        }}
+                });
+                hourlyChart.data = result;
+                hourlyChart.update();
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

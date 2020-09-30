@@ -67,9 +67,11 @@ public class StatsDataService {
 
         if(abstractOneParamStats instanceof ReceivedFromStats){
             data1.setLabel("Received from");
+            data1.setBackgroundColor("#FF0000");
         }
         else if(abstractOneParamStats instanceof SentToStats){
             data1.setLabel("Sent to");
+            data1.setBackgroundColor("#0000FF");
         }
 
         barData.setLabels(new ArrayList<>(abstractOneParamStats.getTop5().keySet()));
@@ -83,7 +85,6 @@ public class StatsDataService {
         }
 
         data1.setBorderWidth(1);
-        data1.setBackgroundColor("#FF0000");
         barData.addDataset(data1);
         return barData;
     }

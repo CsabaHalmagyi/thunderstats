@@ -16,11 +16,18 @@ function initStats(){
         dataType: "json",
         success: function (result)
         {
-            displayMessage("Found "+result+" email(s) in given directory. Creating charts.", "success");
-            getDailyStatsData();
-            getMonthlyStatsData();
-            getYearlyStatsData();
-            getHourlyStatsData();
+
+            if(result == 0) {
+                displayMessage("There was "+result+" .eml files in given directory. Please check directory path", "danger");
+            }
+            else{
+                getDailyStatsData();
+                getMonthlyStatsData();
+                getYearlyStatsData();
+                getHourlyStatsData();
+                displayMessage("Found "+result+" email(s) in given directory. Creating charts.", "success");
+            }
+
         },
         error: function (){
             displayMessage("Error when reading emails from given directory.", "danger");

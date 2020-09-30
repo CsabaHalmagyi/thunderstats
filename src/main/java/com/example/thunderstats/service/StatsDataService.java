@@ -73,6 +73,14 @@ public class StatsDataService {
             data1.setLabel("Sent to");
             data1.setBackgroundColor("#0000FF");
         }
+        else if(abstractOneParamStats instanceof TopDaysReceivedStats){
+            data1.setLabel("Days the most email received");
+            data1.setBackgroundColor("#FF0000");
+        }
+        else if(abstractOneParamStats instanceof TopDaysSentStats){
+            data1.setLabel("Days the most email sent");
+            data1.setBackgroundColor("#0000FF");
+        }
 
         barData.setLabels(new ArrayList<>(abstractOneParamStats.getTop5().keySet()));
         for(String label: barData.getLabels()){

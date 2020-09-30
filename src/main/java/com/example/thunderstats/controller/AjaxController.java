@@ -90,4 +90,20 @@ public class AjaxController {
         return statsDataService.convertToChartData(receivedFromStats);
     }
 
+    @RequestMapping(value = "/daysmostreceivedstats")
+    public BarData getDaysMostReceivedStats(){
+        TopDaysReceivedStats topDaysReceivedStats = new TopDaysReceivedStats();
+
+        topDaysReceivedStats.create(mailService.getEmails(), mailService.getSenderEmailAddress());
+        return statsDataService.convertToChartData(topDaysReceivedStats);
+    }
+
+    @RequestMapping(value = "/daysmostsentstats")
+    public BarData getDaysMostSentStats(){
+        TopDaysSentStats topDaysSentStats = new TopDaysSentStats();
+
+        topDaysSentStats.create(mailService.getEmails(), mailService.getSenderEmailAddress());
+        return statsDataService.convertToChartData(topDaysSentStats);
+    }
+
 }

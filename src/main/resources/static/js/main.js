@@ -27,6 +27,8 @@ function initStats(){
                 getHourlyStatsData();
                 getSentToStatsData();
                 getReceivedFromStatsData();
+                getDaysMostReceivedStatsData();
+                getDaysMostSentStatsData();
                 displayMessage("Found "+result+" email(s) in given directory. Creating charts.", "success");
             }
 
@@ -174,6 +176,52 @@ function getReceivedFromStatsData(){
             });
             receivedFromChart.data = result;
             receivedFromChart.update();
+        }
+    });
+}
+
+function getDaysMostReceivedStatsData(){
+    $.ajax({
+        type: 'POST', //post method
+        url: '/daysmostreceivedstats', //ajaxformexample url
+        dataType: "json",
+        success: function (result)
+        {
+
+            var daysMostReceivedChart = new Chart( document.getElementById('daysMostReceivedStats').getContext('2d'), {
+                type: "bar",
+                data: {},
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Top 5 busiest days'
+                    }}
+            });
+            daysMostReceivedChart.data = result;
+            daysMostReceivedChart.update();
+        }
+    });
+}
+
+function getDaysMostSentStatsData(){
+    $.ajax({
+        type: 'POST', //post method
+        url: '/daysmostsentstats', //ajaxformexample url
+        dataType: "json",
+        success: function (result)
+        {
+
+            var daysMostSentChart = new Chart( document.getElementById('daysMostSentStats').getContext('2d'), {
+                type: "bar",
+                data: {},
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Top 5 busiest days'
+                    }}
+            });
+            daysMostSentChart.data = result;
+            daysMostSentChart.update();
         }
     });
 }

@@ -11,6 +11,8 @@ A Spring Boot app that creates email statistics from .eml files downloaded from 
 4. Number of emails by hour (sent/received)
 5. Top 5 people you sent emails to
 6. Top 5 email addresses you received emails from
+7. Top 5 days with most emails sent
+8. Top 5 days with most emails received
 
 
 

@@ -4,6 +4,14 @@ A Spring Boot app that creates email statistics from .eml files downloaded from 
 
 ![Screenshot1](/documentation/thunderstats1.png)
 
+## What stats can this app generate from the data?
+1. Number of emails by day (sent/received) IE: On Mondays you sent 200 emails and received 340
+2. Number of emails by month (sent/received)
+3. Number of emails by year (sent/received)
+4. Number of emails by hour (sent/received)
+5. Top 5 people you sent emails to
+6. Top 5 email addresses you received emails from
+
 
 
 ## How to use it:

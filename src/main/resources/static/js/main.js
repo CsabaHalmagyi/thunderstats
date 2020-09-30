@@ -17,8 +17,8 @@ function initStats(){
         success: function (result)
         {
 
-            if(result == 0) {
-                displayMessage("There was "+result+" .eml files in given directory. Please check directory path", "danger");
+            if(result == "0") {
+                displayMessage("There are "+result+" .eml files in given directory. Please check directory path", "danger");
             }
             else{
                 getDailyStatsData();

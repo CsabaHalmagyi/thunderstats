@@ -146,7 +146,7 @@ function getSentToStatsData(){
                 options: {
                     title: {
                         display: true,
-                        text: 'Top 10 addressee'
+                        text: 'Top 5 addressee'
                     }}
             });
             sentToChart.data = result;
@@ -169,7 +169,7 @@ function getReceivedFromStatsData(){
                 options: {
                     title: {
                         display: true,
-                        text: 'Top 10 sender'
+                        text: 'Top 5 sender'
                     }}
             });
             receivedFromChart.data = result;

@@ -1,9 +1,9 @@
 package com.example.thunderstats.model.stats;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-abstract class AbstractOneParamStats implements StatsInterface {
+public abstract class AbstractOneParamStats implements StatsInterface {
 
     private Map<String, Integer> stats;
 
@@ -28,4 +28,14 @@ abstract class AbstractOneParamStats implements StatsInterface {
     }
 
 
+    public LinkedHashMap<String,Integer> getOrderedStats(){
+        LinkedHashMap<String,Integer> sorted =
+                stats.entrySet().stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                        .limit(10)
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return sorted;
+    }
 }

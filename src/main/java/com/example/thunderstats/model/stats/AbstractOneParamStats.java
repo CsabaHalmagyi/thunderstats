@@ -32,10 +32,21 @@ public abstract class AbstractOneParamStats implements StatsInterface {
         LinkedHashMap<String,Integer> sorted =
                 stats.entrySet().stream()
                         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                        .limit(10)
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         return sorted;
     }
+
+    public LinkedHashMap<String,Integer> getTop5(){
+        LinkedHashMap<String,Integer> sorted =
+                stats.entrySet().stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                        .limit(5)
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return sorted;
+    }
+
 }

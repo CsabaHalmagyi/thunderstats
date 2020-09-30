@@ -1,10 +1,7 @@
 package com.example.thunderstats.controller;
 
 import com.example.thunderstats.model.chart.BarData;
-import com.example.thunderstats.model.stats.DailyStats;
-import com.example.thunderstats.model.stats.HourlyStats;
-import com.example.thunderstats.model.stats.MonthlyStats;
-import com.example.thunderstats.model.stats.YearlyStats;
+import com.example.thunderstats.model.stats.*;
 import com.example.thunderstats.service.MailService;
 import com.example.thunderstats.service.StatsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +72,22 @@ public class AjaxController {
 
         hourlyStats.create(mailService.getEmails(), mailService.getSenderEmailAddress());
         return statsDataService.convertToChartData(hourlyStats);
+    }
+
+    @RequestMapping(value = "/senttostats")
+    public BarData getSentToStats(){
+        SentToStats sentToStats = new SentToStats();
+
+        sentToStats.create(mailService.getEmails(), mailService.getSenderEmailAddress());
+        return statsDataService.convertToChartData(sentToStats);
+    }
+
+    @RequestMapping(value = "/receivedfromstats")
+    public BarData getReceivedFromStats(){
+        ReceivedFromStats receivedFromStats = new ReceivedFromStats();
+
+        receivedFromStats.create(mailService.getEmails(), mailService.getSenderEmailAddress());
+        return statsDataService.convertToChartData(receivedFromStats);
     }
 
 }

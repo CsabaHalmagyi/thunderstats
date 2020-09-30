@@ -9,7 +9,13 @@ public class ReceivedFromStats extends AbstractOneParamStats {
 
     @Override
     public void create(List<Email> emails, String senderEmailAddress) {
-        emails.forEach(email -> super.increaseStat(email.getFrom())
-        );
+
+            emails.forEach(email -> {
+                        if (email != null &&
+                                email.getFrom() != null &&
+                                !email.getFrom().equalsIgnoreCase(senderEmailAddress))
+                            super.increaseStat(email.getFrom());
+                    }
+            );
     }
 }

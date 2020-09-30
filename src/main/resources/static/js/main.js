@@ -25,6 +25,8 @@ function initStats(){
                 getMonthlyStatsData();
                 getYearlyStatsData();
                 getHourlyStatsData();
+                getSentToStatsData();
+                getReceivedFromStatsData();
                 displayMessage("Found "+result+" email(s) in given directory. Creating charts.", "success");
             }
 
@@ -126,6 +128,52 @@ function getHourlyStatsData(){
             });
             hourlyChart.data = result;
             hourlyChart.update();
+        }
+    });
+}
+
+function getSentToStatsData(){
+    $.ajax({
+        type: 'POST', //post method
+        url: '/senttostats', //ajaxformexample url
+        dataType: "json",
+        success: function (result)
+        {
+
+            var sentToChart = new Chart( document.getElementById('sentToStats').getContext('2d'), {
+                type: "bar",
+                data: {},
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Top 10 addressee'
+                    }}
+            });
+            sentToChart.data = result;
+            sentToChart.update();
+        }
+    });
+}
+
+function getReceivedFromStatsData(){
+    $.ajax({
+        type: 'POST', //post method
+        url: '/receivedfromstats', //ajaxformexample url
+        dataType: "json",
+        success: function (result)
+        {
+
+            var receivedFromChart = new Chart( document.getElementById('receivedFromStats').getContext('2d'), {
+                type: "bar",
+                data: {},
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Top 10 sender'
+                    }}
+            });
+            receivedFromChart.data = result;
+            receivedFromChart.update();
         }
     });
 }

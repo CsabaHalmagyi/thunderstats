@@ -9,6 +9,12 @@ public class SentToStats extends AbstractOneParamStats {
 
     @Override
     public void create(List<Email> emails, String senderEmailAddress) {
-        emails.forEach(email -> super.increaseStat(email.getTo()));
+        emails.forEach(email -> {
+            if (email != null &&
+                    email.getTo() != null &&
+                    !email.getTo().equalsIgnoreCase(senderEmailAddress) &&
+                    email.getFrom().equalsIgnoreCase(senderEmailAddress))
+            super.increaseStat(email.getTo());
+        });
     }
 }

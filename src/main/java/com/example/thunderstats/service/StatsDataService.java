@@ -55,10 +55,39 @@ public class StatsDataService {
             }
         }
 
-
         barData.addDataset(data1);
         barData.addDataset(data2);
-
         return barData;
     }
+
+    public BarData convertToChartData(AbstractOneParamStats abstractOneParamStats){
+
+        BarData barData = new BarData();
+        BarDataset data1 = new BarDataset();
+
+        if(abstractOneParamStats instanceof ReceivedFromStats){
+            data1.setLabel("Received from");
+        }
+        else if(abstractOneParamStats instanceof SentToStats){
+            data1.setLabel("Sent to");
+        }
+
+        barData.setLabels(new ArrayList<>(abstractOneParamStats.getTop5().keySet()));
+        for(String label: barData.getLabels()){
+            try {
+                data1.add(abstractOneParamStats.getStats().get(label));
+            }
+            catch(Exception e){
+                data1.add(0);
+            }
+        }
+
+        data1.setBorderWidth(1);
+        data1.setBackgroundColor("#FF0000");
+        barData.addDataset(data1);
+        return barData;
+    }
+
+
+
 }
